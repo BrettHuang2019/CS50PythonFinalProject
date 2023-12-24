@@ -2,6 +2,8 @@ from pyfiglet import Figlet
 from tabulate import tabulate
 import re
 import cowsay
+import time
+import random
 
 def show_vendor_machine_title():
     figlet = Figlet()
@@ -27,6 +29,14 @@ def show_bought_items(indexlist, vendor):
             if i !=0:
                 s = s+vendor.get_emoji_by_index(i)
         print("You have: "+s)
+
+def show_loading(prompt):
+    print(f"⏳⏳⏳{prompt}.",end="",flush=True)
+    for _ in range(random.randint(3,5)):
+        print(".",end="",flush=True)
+        time.sleep(0.5)
+    print("")
+    
 
 def show_end_game(spend, is_soldout):
     if is_soldout:

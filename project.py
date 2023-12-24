@@ -9,6 +9,7 @@ def main():
     bought_items=[]
 
     user = ui.get_user_name()
+    ui.show_loading("Loading")
     ui.show_vendor_machine_title()
     vendor = init_vendor_machine()
     wallet = Wallet(start_balance)
@@ -20,12 +21,15 @@ def main():
         ui.show_select_promt()
         buy_one = ui.get_buy_one(vendor, wallet)
         get_one = ui.get_free_one(vendor.get_avaliable_free_indexes(buy_one))
+        ui.show_loading("Purchasing")
         wallet.spend(vendor.get_price_by_index(buy_one))
         vendor.sell(buy_one)
         vendor.sell(get_one)
         bought_items.append(buy_one)
         bought_items.append(get_one)
         ui.show_purchase_success()
+        ui.show_loading("Loading")
+
 
     ui.show_bought_items(bought_items, vendor)
     ui.show_end_game(start_balance - wallet.balance, vendor.is_soldout)
