@@ -1,6 +1,5 @@
 from pyfiglet import Figlet
 from tabulate import tabulate
-import re
 import cowsay
 import time
 import random
@@ -45,46 +44,3 @@ def show_end_game(spend, is_soldout):
         line = "😢Too bad..You run out of money.😢\nTotal spend is $"
     cowsay.cow(line+str(spend))
 
-
-def get_user_name():
-    while True:
-        s = input("What's your name: ").strip()
-        if name := validate_user_name(s):
-            break
-    return name
-
-def validate_user_name(name):
-    if m:= re.search(r"^(\w+)$", name):
-        return m.group(1)
-    return False
-
-def get_buy_one(vendor, wallet):
-    while True:
-        i = get_index("Buy One: ", vendor.get_available_entries_indexes())
-        if wallet.balance < vendor.get_price_by_index(i):
-            print("😟Not enough balance to buy this item :(")
-            continue
-        elif i == 0:
-            continue
-        else:
-            break
-    return i
-
-def get_free_one(valid_indexes):
-    if len(valid_indexes) >0:
-        return get_index("Get One Free: ", valid_indexes)
-    else: 
-        return 0
-
-def get_index(prompt, valid_indexes):
-    while True:
-        try:
-            i = int(input(prompt).strip())
-            if i in valid_indexes or i == 0:
-                break
-            else:
-                print("😟You cannot pick this number :(")
-                continue
-        except ValueError:
-            print("ℹ️Please input a valid number")
-    return i

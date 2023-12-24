@@ -1,7 +1,7 @@
 from entry import Entry
 from vendor import Vendor
 from wallet import Wallet
-from ui import validate_user_name
+from project import validate_user_name, validate_index, init_vendor_machine
 import pytest
 
 def main():
@@ -17,6 +17,16 @@ def test_validate_user_name():
     assert validate_user_name("") == False
     assert validate_user_name("  ") == False
     assert validate_user_name("a  b") == False
+
+def test_validate_index():
+    assert validate_index(1, [1,2,3]) == True
+    assert validate_index(0, [1,2,3]) == True
+    assert validate_index(4, [1,2,3]) == False
+
+def test_init_vendor_machine():
+    v = init_vendor_machine()
+    assert v != None
+    assert len(v.entrylist) == 4
 
 def test_entry():
     e = Entry("hamburger","\\U0001F354",10,2)
