@@ -48,6 +48,7 @@ class Entry:
 
     @price.setter
     def price(self, p):
+        p = int(p)
         if p>0:
             self._price =p
         else:
@@ -59,10 +60,15 @@ class Entry:
     
     @amount.setter
     def amount(self, n):
+        n = int(n)
         if n>0:
             self._amount =n
         else:
             raise ValueError("Invalid amount.")
+
+    @property
+    def is_discount(self):
+        return self.amount == 1
     
     def remove(self, n):
         if self.amount >= n:

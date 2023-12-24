@@ -1,7 +1,7 @@
-from project import validate_user_name
 from entry import Entry
 from vendor import Vendor
 from wallet import Wallet
+from ui import validate_user_name
 import pytest
 
 def main():
@@ -39,11 +39,18 @@ def test_entry():
 def test_vendor():
     e1 = Entry("hamburger","\\U0001F354",10,2)
     e2 = Entry("pizza","\\U0001F355",8,1)
-    v = Vendor([e1,e2])
-    assert len(v.get_available_entries()) == 2
-    v.sell("pizza")
-    assert len(v.get_available_entries()) == 1
-    v.sell("pizza") == False
+    e3 = Entry("salad","\\U0001F36D",6,1)
+    v = Vendor([e1,e2,e3])
+    assert len(v.get_available_entries_str()) == 3
+    assert v.get_avaliable_free_indexes(2) == [3]
+    assert v.get_avaliable_free_indexes(1) == [2,3]
+    assert v.get_price_by_index(1) == 10
+    assert v.get_price_by_index(2) == 4
+    assert v.is_soldout == False
+    v.sell(2)
+    assert len(v.get_available_entries_str()) == 2
+    assert v.sell(2) == False
+    assert v.get_available_entries_indexes() == [1,3]
     with pytest.raises(ValueError):
         v = Vendor([])
     
