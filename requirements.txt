@@ -1,0 +1,4 @@
+# Third-party packages
+pyfiglet
+tabulate
+cowsay
