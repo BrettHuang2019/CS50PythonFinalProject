@@ -31,7 +31,7 @@ def show_bought_items(indexlist, vendor):
 
 def show_loading(prompt):
     print(f"⏳⏳⏳{prompt}.",end="",flush=True)
-    for _ in range(random.randint(3,5)):
+    for _ in range(random.randint(2,4)):
         print(".",end="",flush=True)
         time.sleep(0.5)
     print("")
